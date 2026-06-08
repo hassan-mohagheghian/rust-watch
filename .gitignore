@@ -1,0 +1,79 @@
+# =========================
+# Rust (Cargo)
+# =========================
+/target/
+Cargo.lock
+**/*.rs.bk
+
+# Rust analyzer / IDE
+/.idea/
+/.vscode/
+/*.iml
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
+logs/
+
+# =========================
+# Environment variables
+# IMPORTANT: never commit secrets
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Docker
+# =========================
+docker-compose.override.yml
+
+# Optional local volumes
+*.volume
+*.vol
+
+# =========================
+# Kubernetes / deployment
+# =========================
+*.kubeconfig
+
+# =========================
+# Build artifacts (generic)
+# =========================
+dist/
+build/
+out/
+
+# =========================
+# ClickHouse local data (if running locally)
+# =========================
+clickhouse/data/
+clickhouse/metadata/
+clickhouse/wal/
+
+# =========================
+# Kafka / local infra
+# =========================
+kafka-logs/
+zookeeper-data/
+
+# =========================
+# Test / profiling outputs
+# =========================
+*.prof
+*.perf
+perf.data
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.swp
+*~
