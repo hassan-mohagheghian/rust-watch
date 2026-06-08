@@ -1,0 +1,8 @@
+[package]
+edition = "2024"
+name = "application"
+version = "0.1.0"
+
+[dependencies]
+axum = {workspace = true}
+serde = {workspace = true}
