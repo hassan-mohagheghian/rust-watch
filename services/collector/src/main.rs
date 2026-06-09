@@ -1,10 +1,10 @@
-use axum::{Json, Router, routing::post};
-use protocol::TelemetryEvent;
+mod dtos;
+mod handlers;
+mod services;
 
-async fn ingest(Json(payload): Json<TelemetryEvent>) -> &'static str {
-    println!("received event: {:?}", payload);
-    "ok"
-}
+use axum::{Router, routing::post};
+
+use crate::handlers::ingest;
 
 #[tokio::main]
 async fn main() {

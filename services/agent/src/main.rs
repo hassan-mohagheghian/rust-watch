@@ -1,6 +1,10 @@
 use protocol::{TelemetryEvent, TelemetryType};
+use reqwest::Client;
 
-fn main() {
+#[tokio::main]
+async fn main() {
+    let client = Client::new();
+
     let event = TelemetryEvent {
         service_name: "agent-service".to_string(),
         timestamp: chrono::Utc::now().timestamp(),
@@ -8,5 +12,16 @@ fn main() {
         payload: "hello from agent".to_string(),
     };
 
-    println!("Generated event: {:?}", event);
+    let res = client
+        .post("Http://localhost:3000/ingest")
+        .json(&event)
+        .send()
+        .await
+        .unwrap();
+
+    println!(
+        "Agent sent event: {:?} with body={:?}",
+        res.status(),
+        res.text().await.unwrap()
+    );
 }
