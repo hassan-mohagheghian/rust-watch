@@ -7,4 +7,5 @@ version = "0.1.0"
 chrono = {workspace = true}
 protocol = {path = "../../shared/protocol"}
 reqwest = {workspace = true}
+serde = {workspace = true}
 tokio = {workspace = true}

@@ -1,39 +1,72 @@
-# Roadmap
+# RustWatch Roadmap
 
-## Phase 1
+## Completed
 
-- Agent implementation
-- Collector service
-- Basic ingestion pipeline
+### Ingestion Prototype
 
----
-
-## Phase 2
-
-- Kafka streaming layer
-- Fault tolerance improvements
-- Load testing
+- HTTP collector built with Axum
+- DTO validation implemented
+- Domain model introduced
+- In-memory queue (mpsc)
+- Async worker pipeline
+- Multi-agent load generator
 
 ---
 
-## Phase 3
+## Current Focus
+
+### Performance & Pipeline Optimization
+
+- CPU usage optimization under load
+- Queue behavior analysis
+- Worker throughput measurement
+
+---
+
+## Next Milestone
+
+### Batching Worker (High Priority)
+
+Introduce:
+
+- Time-based batching (flush interval)
+- Size-based batching (event threshold)
+- Batch processing instead of per-event processing
+
+Expected impact:
+
+- Reduced CPU usage
+- Higher throughput
+- Foundation for Kafka-style ingestion
+
+---
+
+## Future Milestones
+
+### Distributed Messaging
+
+- Kafka integration
+- Event streaming pipeline
+
+---
+
+### Storage Layer
 
 - ClickHouse integration
-- Query API
-- Basic dashboards
+- Time-series optimization
 
 ---
 
-## Phase 4
+### Observability Layer
 
-- Distributed coordination
-- Scaling improvements
-- Performance benchmarking
+- Internal metrics
+- System health endpoints
+- Performance dashboards
 
 ---
 
-## Phase 5 (Future)
+### Advanced Features
 
-- AI anomaly detection
-- Incident summarization
-- Intelligent observability layer
+- Backpressure handling
+- Multi-node collectors
+- Horizontal scaling
