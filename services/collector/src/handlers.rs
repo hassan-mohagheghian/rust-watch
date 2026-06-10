@@ -1,20 +1,23 @@
-use axum::{Json, http::StatusCode};
+use axum::{Json, extract::State, http::StatusCode};
 
-use crate::{
-    dtos::{ErrorResponseDTO, IngestRequestDTO, IngestResponseDTO},
-    services::IngestService,
-};
+use crate::{dtos::*, services::IngestionService, state::AppState};
 
 pub async fn ingest(
-    Json(dto): Json<IngestRequestDTO>,
-) -> Result<Json<IngestResponseDTO>, (StatusCode, Json<ErrorResponseDTO>)> {
-    if let Err(error) = dto.validate() {
-        return Err((StatusCode::BAD_REQUEST, Json(ErrorResponseDTO { error })));
+    State(state): State<AppState>,
+    Json(dto): Json<IngestRequestDto>,
+) -> Result<Json<IngestResponseDto>, (StatusCode, Json<ErrorResponseDto>)> {
+    if let Err(err) = dto.validate() {
+        return Err((
+            StatusCode::BAD_REQUEST,
+            Json(ErrorResponseDto { error: err }),
+        ));
     }
 
-    IngestService::process(dto);
+    let event = IngestionService::transform(dto);
 
-    Ok(Json(IngestResponseDTO {
-        status: "accepted".into(),
+    let _ = state.sender.send(event).await;
+
+    Ok(Json(IngestResponseDto {
+        status: "accepted".to_string(),
     }))
 }

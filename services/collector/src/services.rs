@@ -1,22 +1,15 @@
-use protocol::TelemetryEvent;
+use crate::dtos::IngestRequestDto;
+use protocol::{TelemetryEvent, TelemetryType};
 
-use crate::dtos::IngestRequestDTO;
+pub struct IngestionService;
 
-pub struct IngestService;
-
-impl IngestService {
-    pub fn process(dto: IngestRequestDTO) -> TelemetryEvent {
-        let event = TelemetryEvent {
+impl IngestionService {
+    pub fn transform(dto: IngestRequestDto) -> TelemetryEvent {
+        TelemetryEvent {
             service_name: dto.service_name,
             timestamp: dto.timestamp,
-            event_type: protocol::TelemetryType::Log,
+            event_type: TelemetryType::Log,
             payload: dto.payload,
-        };
-
-        println!(
-            "[INGESTED] service={} payload={}",
-            event.service_name, event.payload
-        );
-        event
+        }
     }
 }
